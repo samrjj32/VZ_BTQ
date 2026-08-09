@@ -64,10 +64,52 @@ a {
   pointer-events: none;
 }
 
+.preloader__spinner {
+  position: relative;
+  width: 168px;
+  height: 168px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preloader__spinner::before,
+.preloader__spinner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+}
+
+.preloader__spinner::before {
+  border: 2px solid rgba(230, 199, 102, 0.18);
+}
+
+.preloader__spinner::after {
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    transparent 265deg,
+    var(--gold-light) 330deg,
+    var(--gold) 355deg,
+    transparent 360deg
+  );
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 3px), #000 calc(100% - 3px));
+  filter: drop-shadow(0 0 6px rgba(230, 199, 102, 0.8));
+  animation: preloader-spin 1.6s linear infinite;
+}
+
 .preloader__logo {
-  width: 120px;
+  width: 104px;
   filter: drop-shadow(0 0 28px rgba(230, 199, 102, 0.5));
-  animation: preloader-pulse 1.4s ease-in-out infinite;
+  animation: preloader-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes preloader-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @keyframes preloader-pulse {

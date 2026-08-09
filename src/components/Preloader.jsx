@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import logoMark from '../assets/logo-mark-transparent.png'
 
-const MIN_DURATION = 900
+const MIN_DURATION = 2200
 
 export default function Preloader() {
   const [hiding, setHiding] = useState(false)
@@ -38,7 +38,9 @@ export default function Preloader() {
       onTransitionEnd={() => hiding && setDone(true)}
       aria-hidden={hiding}
     >
-      <img src={logoMark} alt="Vismayaa Boutique" className="preloader__logo" />
+      <div className="preloader__spinner">
+        <img src={logoMark} alt="Vismayaa Boutique" className="preloader__logo" />
+      </div>
     </div>
   )
 }
