@@ -8,9 +8,12 @@ export default function ProductDetail() {
   const product = getProductById(id)
 
   const [activeImage, setActiveImage] = useState(0)
+  const [quantity, setQuantity] = useState(1)
+  const [copied, setCopied] = useState(false)
 
   useEffect(() => {
     window.scrollTo(0, 0)
+    setQuantity(1)
   }, [id])
 
   if (!product) return <Navigate to="/" replace />
@@ -20,12 +23,19 @@ export default function ProductDetail() {
   const message = [
     `Hi ${STORE.name}, I'd like to order:`,
     `• ${product.name}`,
-    `• Price: ₹${product.price.toLocaleString('en-IN')}`,
-    '',
-    `Link: ${typeof window !== 'undefined' ? window.location.href : ''}`,
-  ]
-    .filter(Boolean)
-    .join('\n')
+    `• Quantity: ${quantity}`,
+    `• Price: ₹${product.price.toLocaleString('en-IN')} each`,
+  ].join('\n')
+
+  const handleInstagramClick = async () => {
+    try {
+      await navigator.clipboard.writeText(message)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 5000)
+    } catch {
+      // Clipboard API unavailable — visitor can still type the order manually.
+    }
+  }
 
   return (
     <section className="detail">
@@ -74,6 +84,30 @@ export default function ProductDetail() {
             </ul>
           )}
 
+          <div className="detail__qty">
+            <span className="detail__qty-label">Quantity</span>
+            <div className="detail__qty-stepper">
+              <button
+                type="button"
+                className="detail__qty-btn"
+                onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                disabled={quantity <= 1}
+                aria-label="Decrease quantity"
+              >
+                −
+              </button>
+              <span className="detail__qty-value">{quantity}</span>
+              <button
+                type="button"
+                className="detail__qty-btn"
+                onClick={() => setQuantity((q) => q + 1)}
+                aria-label="Increase quantity"
+              >
+                +
+              </button>
+            </div>
+          </div>
+
           <div className="detail__actions">
             <a
               href={buildWhatsAppLink(message)}
@@ -90,15 +124,22 @@ export default function ProductDetail() {
               target="_blank"
               rel="noopener noreferrer"
               className="detail__order-btn detail__order-btn--instagram"
+              onClick={handleInstagramClick}
             >
               <InstagramIcon />
               Order on Instagram
             </a>
           </div>
 
+          {copied && (
+            <p className="detail__copied-note">
+              Order details copied — paste them into the chat that just opened.
+            </p>
+          )}
+
           <p className="detail__note">
-            We don't process payments online. Tap the button above to send your order
-            details straight to our WhatsApp — we'll confirm price, size &amp; delivery there.
+            We don't process payments online. Tap a button above to send your order
+            details straight to us — we'll confirm price, size &amp; delivery there.
           </p>
         </div>
       </div>

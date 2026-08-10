@@ -1,8 +1,7 @@
 // Single place to update store-wide settings.
 
 // WhatsApp number in international format, no symbols (e.g. "919876543210").
-// TODO: replace with the real business WhatsApp number.
-export const WHATSAPP_NUMBER = '910000000000'
+export const WHATSAPP_NUMBER = '917012327899'
 
 export const INSTAGRAM_HANDLE = 'vismayaa_boutique'
 
