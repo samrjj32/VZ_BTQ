@@ -1,9 +1,11 @@
-import saree1 from '../assets/product-saree-1.jpg'
-import saree2 from '../assets/product-saree-2.jpg'
-import saree3 from '../assets/product-saree-3.jpg'
+import saree004 from '../sarees/004.png'
+import saree007 from '../sarees/007.png'
+import saree010 from '../sarees/010.png'
+import saree012 from '../sarees/012.png'
+import saree013 from '../sarees/013.png'
 import { STORE, INSTAGRAM_HANDLE, buildWhatsAppLink } from '../config.js'
 
-const gallery = [saree1, saree2, saree3, saree2, saree3, saree1]
+const gallery = [saree004, saree007, saree010, saree012, saree013, saree004]
 
 export default function Community() {
   return (

@@ -1,19 +1,8 @@
-import { useRef } from 'react'
 import ProductCard from './ProductCard.jsx'
 import { products } from '../data/products.js'
 import { STORE, buildWhatsAppLink } from '../config.js'
 
 export default function BestSellers() {
-  const trackRef = useRef(null)
-
-  function scrollByCards(direction) {
-    const track = trackRef.current
-    if (!track) return
-    const card = track.querySelector('.card')
-    const amount = card ? card.offsetWidth + 24 : 260
-    track.scrollBy({ left: direction * amount, behavior: 'smooth' })
-  }
-
   return (
     <section className="best-sellers">
       <div className="best-sellers__header">
@@ -32,17 +21,9 @@ export default function BestSellers() {
             See more →
           </a>
         </div>
-        <div className="best-sellers__arrows">
-          <button type="button" aria-label="Scroll left" onClick={() => scrollByCards(-1)}>
-            ←
-          </button>
-          <button type="button" aria-label="Scroll right" onClick={() => scrollByCards(1)}>
-            →
-          </button>
-        </div>
       </div>
 
-      <div className="best-sellers__track" ref={trackRef}>
+      <div className="best-sellers__track">
         {products.map((product) => (
           <ProductCard key={product.id} product={product} />
         ))}

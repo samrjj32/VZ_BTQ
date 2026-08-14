@@ -1,8 +1,8 @@
-import saree1 from '../assets/product-saree-1.jpg'
+import heroImage from '../sarees/011.png'
 
 export default function Hero() {
   return (
-    <section className="hero" style={{ backgroundImage: `url(${saree1})` }}>
+    <section className="hero" style={{ backgroundImage: `url(${heroImage})` }}>
       <div className="hero__scrim" />
       <div className="hero__inner">
         <p className="hero__eyebrow">Signature Collection</p>

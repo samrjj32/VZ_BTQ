@@ -1,11 +1,11 @@
-import saree2 from '../assets/product-saree-2.jpg'
+import saree008 from '../sarees/008.png'
 import { STORE, buildWhatsAppLink } from '../config.js'
 
 export default function CraftStory() {
   return (
     <section id="craft" className="craft">
       <div className="craft__image">
-        <img src={saree2} alt="Handwoven saree detail" loading="lazy" />
+        <img src={saree008} alt="Handwoven saree detail" loading="lazy" />
       </div>
       <div className="craft__text">
         <h2 className="section-title section-title--left">

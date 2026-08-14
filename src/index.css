@@ -388,39 +388,22 @@ main {
   background: var(--maroon-dark);
 }
 
-.best-sellers__arrows {
-  display: flex;
-  gap: 10px;
-  flex-shrink: 0;
-}
-
-.best-sellers__arrows button {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: 1px solid var(--border);
-  background: #fff;
-  color: var(--maroon);
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.best-sellers__arrows button:hover {
-  background: var(--gold-soft);
-  border-color: var(--gold);
-}
-
 .best-sellers__track {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 24px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  padding-bottom: 8px;
 }
 
-.best-sellers__track .card {
-  flex: 0 0 260px;
-  scroll-snap-align: start;
+@media (min-width: 640px) {
+  .best-sellers__track {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 980px) {
+  .best-sellers__track {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 
 /* Craft story */

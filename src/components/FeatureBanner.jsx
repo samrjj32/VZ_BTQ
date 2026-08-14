@@ -1,8 +1,8 @@
-import saree3 from '../assets/product-saree-3.jpg'
+import bannerImage from '../sarees/012.png'
 
 export default function FeatureBanner() {
   return (
-    <section className="feature-banner" style={{ backgroundImage: `url(${saree3})` }}>
+    <section className="feature-banner" style={{ backgroundImage: `url(${bannerImage})` }}>
       <div className="feature-banner__scrim" />
       <div className="feature-banner__content">
         <h2>Sculpting Elegance</h2>

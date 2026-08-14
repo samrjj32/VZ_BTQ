@@ -18,13 +18,10 @@ export default function ProductDetail() {
 
   if (!product) return <Navigate to="/" replace />
 
-  const discount = Math.round(((product.mrp - product.price) / product.mrp) * 100)
-
   const message = [
     `Hi ${STORE.name}, I'd like to order:`,
     `• ${product.name}`,
     `• Quantity: ${quantity}`,
-    `• Price: ₹${product.price.toLocaleString('en-IN')} each`,
   ].join('\n')
 
   const handleInstagramClick = async () => {
@@ -64,15 +61,7 @@ export default function ProductDetail() {
 
         <div className="detail__info">
           <p className="detail__brand">{product.brand}</p>
-          {discount > 0 && <span className="detail__discount-badge">-{discount}%</span>}
           <h1 className="detail__title">{product.name}</h1>
-
-          <div className="detail__price">
-            <span className="detail__price-now">₹{product.price.toLocaleString('en-IN')}</span>
-            {product.mrp > product.price && (
-              <span className="detail__price-mrp">₹{product.mrp.toLocaleString('en-IN')}</span>
-            )}
-          </div>
 
           <p className="detail__description">{product.description}</p>
 
