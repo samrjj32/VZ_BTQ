@@ -30,6 +30,16 @@ export default function ProductDetail() {
     .filter(Boolean)
     .join('\n')
 
+  const enquiryMessage = [
+    `Hi ${STORE.name}, I'm interested in a sold-out item:`,
+    `• ${product.name}`,
+    product.serial ? `• Product code: #${product.serial}` : null,
+    `• Could you let me know if it will be restocked, or suggest a similar design?`,
+    `• Photo: ${photoUrl}`,
+  ]
+    .filter(Boolean)
+    .join('\n')
+
   const handleInstagramClick = async () => {
     try {
       await navigator.clipboard.writeText(message)
@@ -37,6 +47,16 @@ export default function ProductDetail() {
       setTimeout(() => setCopied(false), 5000)
     } catch {
       // Clipboard API unavailable — visitor can still type the order manually.
+    }
+  }
+
+  const handleInstagramEnquiryClick = async () => {
+    try {
+      await navigator.clipboard.writeText(enquiryMessage)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 5000)
+    } catch {
+      // ignore
     }
   }
 
@@ -60,8 +80,9 @@ export default function ProductDetail() {
               </button>
             ))}
           </div>
-          <div className="detail__main-image">
+          <div className={`detail__main-image${!product.inStock ? ' detail__main-image--sold-out' : ''}`}>
             <img src={product.images[activeImage]} alt={product.name} />
+            {!product.inStock && <span className="detail__sold-out-overlay">Sold Out</span>}
           </div>
         </div>
 
@@ -72,6 +93,7 @@ export default function ProductDetail() {
 
           <div className="detail__price">
             <span className="detail__price-now">₹{product.price.toLocaleString('en-IN')}</span>
+            {!product.inStock && <span className="detail__sold-out-tag">Sold Out</span>}
           </div>
 
           <p className="detail__description">{product.description}</p>
@@ -97,39 +119,76 @@ export default function ProductDetail() {
             </div>
           </div>
 
-          <div className="detail__actions">
-            <a
-              href={buildWhatsAppLink(message)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="detail__order-btn detail__order-btn--whatsapp"
-            >
-              <WhatsAppIcon />
-              Order on WhatsApp
-            </a>
+          {product.inStock ? (
+            <>
+              <div className="detail__actions">
+                <a
+                  href={buildWhatsAppLink(message)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="detail__order-btn detail__order-btn--whatsapp"
+                >
+                  <WhatsAppIcon />
+                  Order on WhatsApp
+                </a>
 
-            <a
-              href={buildInstagramDMLink()}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="detail__order-btn detail__order-btn--instagram"
-              onClick={handleInstagramClick}
-            >
-              <InstagramIcon />
-              Order on Instagram
-            </a>
-          </div>
+                <a
+                  href={buildInstagramDMLink()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="detail__order-btn detail__order-btn--instagram"
+                  onClick={handleInstagramClick}
+                >
+                  <InstagramIcon />
+                  Order on Instagram
+                </a>
+              </div>
 
-          {copied && (
-            <p className="detail__copied-note">
-              Order details copied — paste them into the chat that just opened.
-            </p>
+              {copied && (
+                <p className="detail__copied-note">
+                  Order details copied — paste them into the chat that just opened.
+                </p>
+              )}
+
+              <p className="detail__note">
+                We don't process payments online. Tap a button above to send your order
+                details straight to us — we'll confirm price, size &amp; delivery there.
+              </p>
+            </>
+          ) : (
+            <div className="detail__enquiry">
+              <p className="detail__enquiry-note">
+                This piece is currently <strong>sold out</strong>. You can enquire about restocking
+                or ask us for similar designs.
+              </p>
+              <div className="detail__actions">
+                <a
+                  href={buildWhatsAppLink(enquiryMessage)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="detail__order-btn detail__order-btn--whatsapp"
+                >
+                  <WhatsAppIcon />
+                  Enquire on WhatsApp
+                </a>
+                <a
+                  href={buildInstagramDMLink()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="detail__order-btn detail__order-btn--instagram"
+                  onClick={handleInstagramEnquiryClick}
+                >
+                  <InstagramIcon />
+                  Enquire on Instagram
+                </a>
+              </div>
+              {copied && (
+                <p className="detail__copied-note">
+                  Enquiry details copied — paste them into the chat that just opened.
+                </p>
+              )}
+            </div>
           )}
-
-          <p className="detail__note">
-            We don't process payments online. Tap a button above to send your order
-            details straight to us — we'll confirm price, size &amp; delivery there.
-          </p>
         </div>
       </div>
     </section>
