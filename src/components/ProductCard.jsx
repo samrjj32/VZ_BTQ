@@ -5,10 +5,14 @@ export default function ProductCard({ product }) {
     <Link to={`/product/${product.id}`} className="card">
       <div className="card__image-wrap">
         <img src={product.images[0]} alt={product.name} className="card__image" loading="lazy" />
+        {product.serial && <span className="card__serial">#{product.serial}</span>}
       </div>
       <div className="card__body">
         <p className="card__brand">{product.brand}</p>
         <h3 className="card__name">{product.name}</h3>
+        <div className="card__price">
+          <span className="card__price-now">₹{product.price.toLocaleString('en-IN')}</span>
+        </div>
       </div>
     </Link>
   )

@@ -8,21 +8,27 @@ export default function ProductDetail() {
   const product = getProductById(id)
 
   const [activeImage, setActiveImage] = useState(0)
-  const [quantity, setQuantity] = useState(1)
   const [copied, setCopied] = useState(false)
+  const quantity = 1
 
   useEffect(() => {
     window.scrollTo(0, 0)
-    setQuantity(1)
   }, [id])
 
   if (!product) return <Navigate to="/" replace />
 
+  const photoUrl = `${window.location.origin}${product.images[activeImage]}`
+
   const message = [
     `Hi ${STORE.name}, I'd like to order:`,
     `• ${product.name}`,
+    product.serial ? `• Product code: #${product.serial}` : null,
     `• Quantity: ${quantity}`,
-  ].join('\n')
+    `• Price: ₹${product.price.toLocaleString('en-IN')}`,
+    `• Photo: ${photoUrl}`,
+  ]
+    .filter(Boolean)
+    .join('\n')
 
   const handleInstagramClick = async () => {
     try {
@@ -61,7 +67,12 @@ export default function ProductDetail() {
 
         <div className="detail__info">
           <p className="detail__brand">{product.brand}</p>
+          {product.serial && <p className="detail__serial">Product #{product.serial}</p>}
           <h1 className="detail__title">{product.name}</h1>
+
+          <div className="detail__price">
+            <span className="detail__price-now">₹{product.price.toLocaleString('en-IN')}</span>
+          </div>
 
           <p className="detail__description">{product.description}</p>
 
@@ -76,22 +87,11 @@ export default function ProductDetail() {
           <div className="detail__qty">
             <span className="detail__qty-label">Quantity</span>
             <div className="detail__qty-stepper">
-              <button
-                type="button"
-                className="detail__qty-btn"
-                onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                disabled={quantity <= 1}
-                aria-label="Decrease quantity"
-              >
+              <button type="button" className="detail__qty-btn" disabled aria-label="Decrease quantity">
                 −
               </button>
               <span className="detail__qty-value">{quantity}</span>
-              <button
-                type="button"
-                className="detail__qty-btn"
-                onClick={() => setQuantity((q) => q + 1)}
-                aria-label="Increase quantity"
-              >
+              <button type="button" className="detail__qty-btn" disabled aria-label="Increase quantity">
                 +
               </button>
             </div>

@@ -5,10 +5,13 @@ export const WHATSAPP_NUMBER = '917012327899'
 
 export const INSTAGRAM_HANDLE = 'vismayaa_boutique'
 
+export const EMAIL = 'vismayaaboutique@gmail.com'
+
 export const STORE = {
   name: 'Vismayaa Boutique',
   tagline: 'Handloom sarees, woven with tradition',
   instagram: `https://instagram.com/${INSTAGRAM_HANDLE}`,
+  email: EMAIL,
   location: 'India',
 }
 

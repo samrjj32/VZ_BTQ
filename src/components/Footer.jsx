@@ -37,6 +37,7 @@ export default function Footer() {
               Instagram
             </a>
           )}
+          {STORE.email && <a href={`mailto:${STORE.email}`}>{STORE.email}</a>}
         </div>
       </div>
 
