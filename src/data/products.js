@@ -217,8 +217,8 @@ export const products = [
       'Handmade macramé tassel pallu',
     ],
     images: [saree010],
-    inStock: true,
-    stockLeft: 4,
+    inStock: false,
+    stockLeft: 0,
   },
   {
     id: 'gold-zari-kasavu-maroon-stripes',
@@ -275,8 +275,8 @@ export const products = [
       'Pure handloom weave',
     ],
     images: [saree013],
-    inStock: true,
-    stockLeft: 4,
+    inStock: false,
+    stockLeft: 0,
   },
   {
     id: 'ivory-cotton-gold-pinstripe-saree',
@@ -370,8 +370,8 @@ export const products = [
       'Perfect for weddings & temple visits',
     ],
     images: [saree018],
-    inStock: true,
-    stockLeft: 4,
+    inStock: false,
+    stockLeft: 0,
   },
   {
     id: 'olive-green-gold-kasavu-tassel-saree',
